@@ -1,0 +1,12 @@
+.imag{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid black;
+    display: block;
+    margin: auto;
+}
+
+.back{
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}

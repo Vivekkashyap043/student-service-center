@@ -1,0 +1,18 @@
+.bt{
+    min-width: 80%;
+    margin-top: 30px;
+    margin-left: 32px;
+}
+.imag{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid black;
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.back{
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}

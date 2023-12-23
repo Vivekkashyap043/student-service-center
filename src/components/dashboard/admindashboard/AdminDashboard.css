@@ -1,0 +1,32 @@
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 5px;
+  }
+  
+  .marquee-content {
+    animation: marquee 25s linear infinite;
+    color: navy;
+    font-size: 24px;
+  }
+  
+  @keyframes marquee {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .txt{
+    color: rgb(200, 11, 11);
+    text-align: center;
+    font-weight: 400;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+  }
+  .m{
+    margin-right: 30px;
+  }
