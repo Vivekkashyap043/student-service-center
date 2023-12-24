@@ -32,6 +32,10 @@ function AdminDashboardHome() {
     let {ename} = useContext(AccountContext);
     let [bonafides, setBonafides] = useState([]);
     let [idcards, setIdCards] = useState([]);
+    let [bonafideFlag, setBonafideFlag] = useState(false);
+    let [idcardFlag, setIdcardFlag] = useState(false);
+    let [bonafideAFlag, setBonafideAFlag] = useState(false);
+    let [idcardAFlag, setIdcardAFlag] = useState(false);
 
     const [openBonafidePreview, setOpenBonafidePreview] = useState(false);
     const [openIdCardPreview, setOpenIdCardPreview] = useState(false);
@@ -55,17 +59,85 @@ function AdminDashboardHome() {
     const handleCloseIdCardPreview = () => {
       setOpenIdCardPreview(false);
     };
+///// id card rejected
+    const onIdCardReject = async (idCardData)=>{
+      console.log(idCardData.rollnumber,"  rejected");
+      let rollnumber = idCardData.rollnumber;
+      try {
+        const response = await fetch(`http://localhost:4000/idcard/reject-idcard?rollnumber=${rollnumber}`, {
+          method: 'DELETE',
+        });
+  
+        if (!response.ok) {
+          console.log("Some error occured");
+        }
+        setIdcardFlag(!idcardFlag);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error('Error deleting idcard', error);
+      }
+    };
 
-    // useEffect(()=>{
-    //     const getAdmin = async () =>{
-    //      const res = await  fetch(`http://localhost:4000/admin?eid=${eid}`, {
-    //         method: 'GET'
-    //       });
-    //       setAdminName(await res.text());
-    //       console.log(adminName)
-    //     }
-    //     getAdmin();
-    //   },[]);
+    // Id card accepted
+    const onIdCardAccept= async (idCardData)=>{
+      console.log(idCardData.rollnumber,"  rejected");
+      let rollnumber = idCardData.rollnumber;
+      try {
+        const response = await fetch(`http://localhost:4000/idcard/accept-idcard?rollnumber=${rollnumber}`, {
+          method: 'DELETE',
+        });
+  
+        if (!response.ok) {
+          console.log("Some error occured");
+        }
+        setIdcardAFlag(!idcardAFlag);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error('Error deleting idcard', error);
+      }
+    };
+
+    // bonafide reject
+    const onBonafideReject = async (bonafideData)=>{
+      console.log(bonafideData.rollnumber,"  rejected");
+      let rollnumber = bonafideData.rollnumber;
+      try {
+        const response = await fetch(`http://localhost:4000/bonafide/reject-bonafide?rollnumber=${rollnumber}`, {
+          method: 'DELETE',
+        });
+  
+        if (!response.ok) {
+          console.log("Some error occured");
+        }
+        setBonafideFlag(!bonafideFlag);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error('Error deleting bonafide', error);
+      }
+    }
+
+// bonafide accepted
+    const onBonafideAccept = async (bonafideData)=>{
+      console.log(bonafideData.rollnumber,"  rejected");
+      let rollnumber = bonafideData.rollnumber;
+      try {
+        const response = await fetch(`http://localhost:4000/bonafide/accept-bonafide?rollnumber=${rollnumber}`, {
+          method: 'DELETE',
+        });
+  
+        if (!response.ok) {
+          console.log("Some error occured");
+        }
+        setBonafideAFlag(!bonafideAFlag);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error('Error deleting bonafide', error);
+      }
+    }
 
       
       useEffect(()=>{
@@ -79,10 +151,31 @@ function AdminDashboardHome() {
         }
         getBonafides();
        },[])
-       
-       useEffect(() => {
-        console.log("bonafides are : ", bonafides);
-       }, [bonafides]);
+
+       useEffect(()=>{
+        const getBonafides = async () =>{
+           const response = await fetch('http://localhost:4000/bonafide/all-bonafides',{
+             method: 'GET'
+           })
+           const data = await response.json();
+           console.log("data =",data)
+           setBonafides(data);
+        }
+        getBonafides();
+       },[bonafideFlag, bonafideAFlag]);
+      
+
+       useEffect(()=>{
+        const getIdCards = async () =>{
+           const response = await fetch('http://localhost:4000/idcard/all-idcards',{
+             method: 'GET'
+           })
+           const data = await response.json();
+           console.log("data =",data)
+           setIdCards(data);
+        }
+        getIdCards();
+       },[idcardFlag, idcardAFlag]);
 
        useEffect(()=>{
         const getIdCards = async () =>{
@@ -96,9 +189,6 @@ function AdminDashboardHome() {
         getIdCards();
        },[])
        
-       useEffect(() => {
-        console.log("idcards are : ", idcards);
-       }, [idcards]);
 
   return (
     <div>
@@ -122,8 +212,8 @@ function AdminDashboardHome() {
               <div className="row" key={object.rollnumber}>
                 <div className="col">{object.rollnumber}</div>
                 <div className="col"><button className='btn btn-primary' onClick={() => handleOpenIdCardPreview(object)}>Preview</button></div>
-                <div className="col"><button className='btn btn-danger'>Reject</button></div>
-                <div className="col"><button className='btn btn-success'>Accept</button></div>
+                <div className="col"><button className='btn btn-danger' onClick={() => onIdCardReject(object)}>Reject</button></div>
+                <div className="col"><button className='btn btn-success' onClick={() => onIdCardAccept(object)}>Accept</button></div>
                 <hr className='mt-1'/>
               </div>
             ))}
@@ -142,8 +232,8 @@ function AdminDashboardHome() {
               <div className="row" key={object.rollnumber}>
                 <div className="col">{object.rollnumber}</div>
                 <div className="col"><button className='btn btn-primary' onClick={() => handleOpenBonafidePreview(object)}>Preview</button></div>
-                <div className="col"><button className='btn btn-danger'>Reject</button></div>
-                <div className="col"><button className='btn btn-success'>Accept</button></div>
+                <div className="col"><button className='btn btn-danger' onClick={() => onBonafideReject(object)}>Reject</button></div>
+                <div className="col"><button className='btn btn-success' onClick={() => onBonafideAccept(object)}>Accept</button></div>
                 <hr className='mt-1'/>
               </div>
             ))}

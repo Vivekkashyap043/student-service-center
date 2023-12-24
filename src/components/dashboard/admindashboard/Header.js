@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 function Header() {
@@ -10,6 +9,11 @@ function Header() {
                         <h1 className='m-3 text-success' style={{ fontWeight: 700 }}>
                             Admin Dashboard
                         </h1>
+                    </NavLink>
+                </div>
+                <div className="col d-flex justify-content-end m-4">
+                <NavLink to="/">
+                        <u style={{color:"red"}}>Logout</u>
                     </NavLink>
                 </div>
             </div>

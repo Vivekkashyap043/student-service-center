@@ -24,6 +24,11 @@ function Header() {
                 <u> Apply for bonafide</u>
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/" style={{ color: "#000080" }}>
+                <u>Logout</u>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

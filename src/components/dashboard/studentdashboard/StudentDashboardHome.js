@@ -34,6 +34,11 @@ function StudentDashboardHome() {
           <h4><span className='red'>Email </span>: <span className='green'>{studentData.email} </span></h4>
           <h4><span className='red'>Phone </span>: <span className='green'>{studentData.phone} </span></h4>
         </div>
+        <div>
+          <h3 className='text-center mt-4 mb-4 text-primary' style={{marginRight: "300px"}}>status</h3>
+          <p style={{color:"navy"}}>id card status : {studentData.idcardStatus}</p>
+          <p style={{color:"navy"}}>Bonafide status : {studentData.bonafideStatus}</p>
+        </div>
       </div>
       <div className='rounded col' style={{minWidth:"53rem", background: "#E0E0E0", borderLeft: "2px solid black"}}>
         <div className="m-5 p-5" style={{minWidth:"50rem", background: "#E0E0E0", borderRight: "2px solid black"}}>
