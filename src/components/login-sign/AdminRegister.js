@@ -10,7 +10,7 @@ function AdminRegister() {
 
   async function onAdminRegister(adminObj){
 
-    const response = await fetch('http://localhost:4000/admin-register',{
+    const response = await fetch('http://localhost:4000/admin/signup',{
       method: 'POST',
       body:JSON.stringify(adminObj),
       headers:{

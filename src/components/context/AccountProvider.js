@@ -4,10 +4,10 @@ export const AccountContext = createContext(null);
 
 function AccountProvider({ children }) {
   let [sid, setSid] = useState('');
-  let [eid, setEid] = useState('');
+  let [ename, setEname] = useState('');
   
   return (
-    <AccountContext.Provider value={{ sid, setSid, eid, setEid }}>
+    <AccountContext.Provider value={{ sid, setSid, ename, setEname }}>
       {children}
     </AccountContext.Provider>
   );

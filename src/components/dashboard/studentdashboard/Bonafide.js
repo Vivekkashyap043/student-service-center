@@ -8,7 +8,7 @@ function Bonafide() {
   let [res, setRes] = useState('');
 
   async function onBonafideApply(bonafideObj){
-    const response = await fetch('http://localhost:4000/bonafide',{
+    const response = await fetch('http://localhost:4000/bonafide/apply',{
       method: 'POST',
             body: JSON.stringify(bonafideObj),
             headers: {

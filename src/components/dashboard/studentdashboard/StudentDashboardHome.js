@@ -5,19 +5,19 @@ import './HomeDashboard.css'
 
 function StudentDashboardHome() {
 
-  let {sid, setSid} = useContext(AccountContext);
+  let {sid} = useContext(AccountContext);
   let [studentData, setStudentData] = useState({});
+  console.log(sid);
 
   useEffect(()=>{
     const getStudent = async () =>{
-     const res = await  fetch(`http://localhost:4000/student?sid=${sid}`, {
+     const res = await  fetch(`http://localhost:4000/student/details?sid=${sid}`, {
         method: 'GET'
       });
       let data = await res.json();
+      console.log("data is ",data);
       setStudentData(data);
-      //studentData = JSON.parse(data)
       console.log("data", data.sid, " ", data.name)
-      //console.log("studentData ", studentData);
     }
     getStudent();
   },[sid]);

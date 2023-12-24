@@ -10,11 +10,11 @@ function StudentLogin() {
     let { register, handleSubmit} = useForm();
     let result;
     let navigate = useNavigate()
-    let { sid, setSid } = useContext(AccountContext);
+    let { setSid } = useContext(AccountContext);
 
     async function onStudentLogin(loginCredential) {
         console.log(loginCredential);
-        const response = await fetch('http://localhost:4000/student-login', {
+        const response = await fetch('http://localhost:4000/student/login', {
             method: 'POST',
             body: JSON.stringify(loginCredential),
             headers: {

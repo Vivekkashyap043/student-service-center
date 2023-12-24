@@ -3,7 +3,7 @@ import './AdminDashboard.css';
 import { useContext, useEffect, useState } from 'react'
 import {AccountContext} from "../../context/AccountProvider";
 import BonafidePreview from './BonafidePreview';
-import { Dialog, styled } from '@mui/material';
+import { Dialog } from '@mui/material';
 import IdCardPreview from './IdCardPreview';
 
 const BonafidePreviewDialog = {
@@ -29,8 +29,7 @@ const IdCardPreviewDialog = {
 
 function AdminDashboardHome() {
 
-    let {eid} = useContext(AccountContext);
-    let [adminName, setAdminName] = useState('')
+    let {ename} = useContext(AccountContext);
     let [bonafides, setBonafides] = useState([]);
     let [idcards, setIdCards] = useState([]);
 
@@ -57,21 +56,21 @@ function AdminDashboardHome() {
       setOpenIdCardPreview(false);
     };
 
-    useEffect(()=>{
-        const getAdmin = async () =>{
-         const res = await  fetch(`http://localhost:4000/admin?eid=${eid}`, {
-            method: 'GET'
-          });
-          setAdminName(await res.text());
-          console.log(adminName)
-        }
-        getAdmin();
-      },[eid]);
+    // useEffect(()=>{
+    //     const getAdmin = async () =>{
+    //      const res = await  fetch(`http://localhost:4000/admin?eid=${eid}`, {
+    //         method: 'GET'
+    //       });
+    //       setAdminName(await res.text());
+    //       console.log(adminName)
+    //     }
+    //     getAdmin();
+    //   },[]);
 
       
       useEffect(()=>{
         const getBonafides = async () =>{
-           const response = await fetch('http://localhost:4000/get-bonafides',{
+           const response = await fetch('http://localhost:4000/bonafide/all-bonafides',{
              method: 'GET'
            })
            const data = await response.json();
@@ -79,7 +78,7 @@ function AdminDashboardHome() {
            setBonafides(data);
         }
         getBonafides();
-       },[eid])
+       },[])
        
        useEffect(() => {
         console.log("bonafides are : ", bonafides);
@@ -87,7 +86,7 @@ function AdminDashboardHome() {
 
        useEffect(()=>{
         const getIdCards = async () =>{
-           const response = await fetch('http://localhost:4000/get-idcards',{
+           const response = await fetch('http://localhost:4000/idcard/all-idcards',{
              method: 'GET'
            })
            const data = await response.json();
@@ -95,7 +94,7 @@ function AdminDashboardHome() {
            setIdCards(data);
         }
         getIdCards();
-       },[eid])
+       },[])
        
        useEffect(() => {
         console.log("idcards are : ", idcards);
@@ -105,7 +104,7 @@ function AdminDashboardHome() {
     <div>
           <div className="marquee-container">
               <div className="marquee-content">
-                  Welcome back, {adminName}
+                  Welcome back, {ename} to your dashboard
               </div>
           </div>
           <div className='rounded d-flex m-2' 

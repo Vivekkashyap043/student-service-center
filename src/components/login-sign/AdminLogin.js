@@ -10,10 +10,10 @@ function AdminLogin() {
     let { register, handleSubmit} = useForm();
     let result;
     let navigate = useNavigate()
-    let {setEid} = useContext(AccountContext);
+    let {setEname} = useContext(AccountContext);
 
     async function onAdminLogin(loginCredential) {
-        const response = await fetch('http://localhost:4000/admin-login', {
+        const response = await fetch('http://localhost:4000/admin/login', {
             method: 'POST',
             body: JSON.stringify(loginCredential),
             headers: {
@@ -21,11 +21,11 @@ function AdminLogin() {
             }
         })
         result = await response.text();
-        if (result === 'match') {
-            setEid(loginCredential.eid);
-            navigate("/admin-dashboard");
-        } else {
+        if (result === "notmatch") {
             console.log("invalid username or password");
+        } else {
+            setEname(result);
+            navigate("/admin-dashboard");
         }
     }
   return (

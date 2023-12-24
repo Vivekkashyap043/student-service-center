@@ -1,6 +1,14 @@
 import React from 'react'
 
 function IdCardPreview({idCardData, handleCloseIdCardPreview}) {
+
+  const bufferToDataURL = (buffer) => {
+    const arrayBuffer = new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '');
+    return `data:image/jpeg;base64,${btoa(arrayBuffer)}`;
+  };
+
+
+  console.log(idCardData);
   return (
     <div style={{minWidth:"90%"}}>
       <div className='mt-2'>
@@ -9,9 +17,9 @@ function IdCardPreview({idCardData, handleCloseIdCardPreview}) {
       <div className='container'>
         <div className='d-flex justify-content-center align-items-start'>
         <img
-            src={`data:image/png;base64,${idCardData.photo}`} // Assuming the photo is in base64 format
-            alt="User Photo"
-            style={{ maxWidth: '200px', maxHeight: '200px', borderRadius:"50%", border:"1px solid black" }}
+            src={bufferToDataURL(idCardData.photo.data)}// Assuming the photo is in base64 format
+            alt="User"
+            style={{ maxWidth: '200px', maxHeight: '200px',minWidth: "200px", minHeight:"200px", borderRadius:"50%", border:"1px solid black" }}
           />
         </div>
         <div className="row m-3">

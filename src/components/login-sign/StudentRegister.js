@@ -9,7 +9,7 @@ function StudentRegister() {
   let [result, setResult] = useState('');
 
   async function onStudentRegister(stdObj){
-    const response = await fetch('http://localhost:4000/student-register',{
+    const response = await fetch('http://localhost:4000/student/signup',{
       method: 'POST',
       body:JSON.stringify(stdObj),
       headers:{

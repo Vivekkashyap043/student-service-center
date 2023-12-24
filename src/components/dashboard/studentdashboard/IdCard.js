@@ -14,8 +14,7 @@ function IdCard() {
     formData.append('branch', idCardObj.branch);
     formData.append('photo', idCardObj.photo[0]); // Assuming photo is a FileList
     formData.append('address', idCardObj.address);
-
-    const response = await fetch('http://localhost:4000/id-card', {
+    const response = await fetch('http://localhost:4000/idcard/apply', {
       method: 'POST',
       body: formData,
     });
